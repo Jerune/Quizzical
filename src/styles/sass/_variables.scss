@@ -1,0 +1,11 @@
+// Colors
+$color-primary: #FF6060;
+$color-secondary: #F6F6F6;
+
+// Responsive breakpoints
+
+@mixin responsive($breakpoint) {
+    @media screen and (max-width: $breakpoint){
+        @content;
+    }
+}
