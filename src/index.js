@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "../src/pages/App/App";
-import "./styles/fonts.css";
 import "./styles/main.css";
 
 // @ts-ignore
