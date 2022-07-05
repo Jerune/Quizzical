@@ -1,7 +1,10 @@
 // Utils
-@import "./sass/general.scss";
 @import "./sass/variables.scss";
+@import "./sass/general.scss";
 
 // Components
+@import "../components/Question/Question.scss";
 
 // Pages
+@import "../pages/Home/Home.scss";
+@import "../pages/Quiz/Quiz.scss";
