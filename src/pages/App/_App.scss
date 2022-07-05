@@ -1,0 +1,23 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 300px;
+    height: 100%;
+    width: 100%;
+}
+
+.bulb{
+    position: absolute;
+    width: 300px;
+    &.top{
+        top: -10%;
+        right: -1%;
+    }
+    &.bottom{
+        bottom: -2%;
+        left: -2%;
+    }
+}
