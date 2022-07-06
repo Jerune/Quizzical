@@ -102,6 +102,11 @@ button {
   border: none;
   padding: 5px 17px;
 }
+.question .question_answers_input:checked + label.correct {
+  background-color: #94D7A2;
+  border: none;
+  padding: 5px 17px;
+}
 
 .answer {
   display: flex;
