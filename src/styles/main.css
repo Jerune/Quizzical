@@ -80,6 +80,16 @@ button {
   border-radius: 8px;
   margin: 13px 13px 0 0;
 }
+.question_answers_label.correct {
+  background-color: #94D7A2;
+  border: none;
+  padding: 5px 17px;
+}
+.question_answers_label.incorrect {
+  background-color: red;
+  border: none;
+  padding: 5px 17px;
+}
 .question_answers_input {
   list-style: none;
   -webkit-appearance: none;
@@ -91,6 +101,11 @@ button {
   background-color: #D6DBF5;
   border: none;
   padding: 5px 17px;
+}
+
+.answer {
+  display: flex;
+  flex-direction: row;
 }
 
 .main {

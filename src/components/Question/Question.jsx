@@ -1,47 +1,82 @@
+// @ts-nocheck
+import { nanoid } from "nanoid";
 import { useState } from "react";
 
-export default function Question({ data, id }) {
-  const [allQuestions, setAllQuestions] = useState(() => createAnswers());
+export default function Question({ question, indexId, showResults }) {
+  const [quizData, setQuizData] = useState([]);
 
-  function createAnswers() {
+  if (quizData.length === 0) {
     const answersArray = [];
-    data.incorrect_answers.map((answer) => {
-      return answersArray.push({ reply: answer, isCorrect: false });
+    question.incorrect_answers.map((answer) => {
+      return answersArray.push({
+        reply: answer,
+        isCorrect: false,
+        isChosen: false,
+        id: nanoid(),
+      });
     });
-    answersArray.push({ reply: data.correct_answer, isCorrect: true });
-    const sortedAnswers = answersArray.sort(() => Math.random() - 0.5);
-
-    return sortedAnswers;
+    answersArray.push({
+      reply: question.correct_answer,
+      isCorrect: true,
+      isChosen: false,
+      id: nanoid(),
+    });
+    const sortedArray = answersArray.sort(() => Math.random() - 0.5);
+    setQuizData(sortedArray);
   }
 
-  function fixTitle(text) {
-    return text.replace(/&quot/g, "").replace(/&#039;/g, "");
+  function fixText(text) {
+    return text
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'")
+      .replace(/&amp;/g, "&");
   }
 
-  const quizAnswers = allQuestions.map((answer, index) => {
+  function handleChange(id) {
+    setQuizData((prevState) =>
+      prevState.map((answer) =>
+        answer.id === id
+          ? { ...answer, isChosen: true }
+          : { ...answer, isChosen: false }
+      )
+    );
+  }
+
+  const quizAnswers = quizData.map((answer, index) => {
+    let styles = "";
+    if (showResults) {
+      styles = answer.isCorrect
+        ? "correct"
+        : answer.isChosen && !answer.isCorrect
+        ? "incorrect"
+        : null;
+    }
     return (
-      <>
+      <div
+        className={`answer ${showResults && "results"}`}
+        key={`answers_question_${indexId}_${index}`}
+      >
         <input
-          className="question_answers_input"
+          className={`question_answers_input ${styles}`}
           type="radio"
           value={answer.reply}
-          key={`answers_question_${id}_${index}`}
-          name={`answers_question_${id}`}
-          id={`answers_question_${id}_${index}`}
+          name={`answers_question_${indexId}`}
+          id={`answers_id_${answer.id}`}
+          onChange={() => handleChange(answer.id)}
         />
         <label
           className="question_answers_label"
-          for={`answers_question_${id}_${index}`}
+          htmlFor={`answers_id_${answer.id}`}
         >
-          {answer.reply}
+          {fixText(answer.reply)}
         </label>
-      </>
+      </div>
     );
   });
 
   return (
     <div className="question">
-      <h2>{fixTitle(data.question)}</h2>
+      <h2>{fixText(question.question)}</h2>
       <div className="question_answers">{quizAnswers}</div>
     </div>
   );

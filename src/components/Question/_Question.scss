@@ -21,6 +21,16 @@
             border: 1px solid #4D5B9E;
             border-radius: 8px;
             margin: 13px 13px 0 0;
+            &.correct{
+                background-color: #94D7A2;
+                border: none;
+                padding: 5px 17px;
+            }
+            &.incorrect{
+                background-color: red;
+                border: none;
+                padding: 5px 17px;
+            }
         }
         &_input{
             list-style: none;
@@ -33,4 +43,9 @@
             }
         }
     }
+}
+
+.answer{
+    display: flex;
+    flex-direction: row;
 }

@@ -2,17 +2,15 @@ import { useEffect, useState } from "react";
 import Question from "../../components/Question/Question";
 
 export default function Quiz() {
-  const [isActive, setActiveState] = useState(true);
-  const [questions, setQuestions] = useState([]);
+  const [showResults, setShowResults] = useState(false);
   const [dataIsLoading, setDataLoading] = useState(false);
-
-  console.log(questions);
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    questions.length === 0 && getQuestions();
-    !isActive && getQuestions();
-  }, [questions, isActive]);
+    !showResults && getQuestions();
+  }, [showResults]);
 
+  // Functions
   async function getQuestions() {
     setDataLoading(true);
     try {
@@ -27,6 +25,8 @@ export default function Quiz() {
     setDataLoading(false);
   }
 
+  // Conditionals
+
   if (dataIsLoading) {
     return <h1>Loading your challenge...</h1>;
   }
@@ -34,9 +34,21 @@ export default function Quiz() {
   let questionElements = [];
   if (questions.length > 0) {
     questionElements = questions.map((question, index) => {
-      return <Question key={index} data={question} id={index} />;
+      return (
+        <Question
+          key={index}
+          question={questions[index]}
+          indexId={index}
+          showResults={showResults}
+        />
+      );
     });
   }
 
-  return <div className="quiz">{questionElements}</div>;
+  return (
+    <div className="quiz">
+      {questionElements}
+      <button>Check answers</button>
+    </div>
+  );
 }
