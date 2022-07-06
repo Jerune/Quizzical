@@ -5,20 +5,20 @@ import { useState } from "react";
 export default function Question({ question, indexId, showResults }) {
   const [quizData, setQuizData] = useState([]);
 
+  console.log(quizData);
+
   if (quizData.length === 0) {
     const answersArray = [];
     question.incorrect_answers.map((answer) => {
       return answersArray.push({
         reply: answer,
         isCorrect: false,
-        isChosen: false,
         id: nanoid(),
       });
     });
     answersArray.push({
       reply: question.correct_answer,
       isCorrect: true,
-      isChosen: false,
       id: nanoid(),
     });
     const sortedArray = answersArray.sort(() => Math.random() - 0.5);
@@ -53,19 +53,22 @@ export default function Question({ question, indexId, showResults }) {
     }
     return (
       <div
-        className={`answer ${showResults && "results"}`}
+        className={`answer ${
+          showResults && !answer.isCorrect ? "lighten" : ""
+        }`}
         key={`answers_question_${indexId}_${index}`}
       >
         <input
-          className={`question_answers_input ${styles}`}
+          className="question_answers_input"
           type="radio"
           value={answer.reply}
           name={`answers_question_${indexId}`}
           id={`answers_id_${answer.id}`}
           onChange={() => handleChange(answer.id)}
+          disabled={showResults ? true : false}
         />
         <label
-          className="question_answers_label"
+          className={`question_answers_label ${styles}`}
           htmlFor={`answers_id_${answer.id}`}
         >
           {fixText(answer.reply)}

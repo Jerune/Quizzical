@@ -4,6 +4,7 @@
     align-items: flex-start;
     padding: 15px 0;
     border-bottom: 0.8px solid #DBDEF0;
+    &
     &_answers{
         display: flex;
         flex-direction: row;
@@ -26,11 +27,6 @@
                 border: none;
                 padding: 5px 17px;
             }
-            &.incorrect{
-                background-color: red;
-                border: none;
-                padding: 5px 17px;
-            }
         }
         &_input{
             list-style: none;
@@ -40,6 +36,11 @@
                 background-color: $color-select;
                 border: none;
                 padding: 5px 17px;
+                &.incorrect{
+                background-color: #F8BCBC;
+                border: none;
+                padding: 5px 17px;
+            }
             }
         }
     }
@@ -48,4 +49,7 @@
 .answer{
     display: flex;
     flex-direction: row;
+    &.lighten{
+        opacity: 0.55;
+    }
 }
