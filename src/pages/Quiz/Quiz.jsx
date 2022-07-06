@@ -45,10 +45,16 @@ export default function Quiz() {
     });
   }
 
+  const buttons = !showResults ? (
+    <button onClick={() => setShowResults(true)}>Check answers</button>
+  ) : (
+    <button onClick={() => setShowResults(false)}>Play again</button>
+  );
+
   return (
     <div className="quiz">
       {questionElements}
-      <button>Check answers</button>
+      {buttons}
     </div>
   );
 }
