@@ -38,5 +38,5 @@ export default function Quiz() {
     });
   }
 
-  return <div>{questionElements}</div>;
+  return <div className="quiz">{questionElements}</div>;
 }
