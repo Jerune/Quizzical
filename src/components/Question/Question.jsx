@@ -1,11 +1,17 @@
 // @ts-nocheck
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Question({ question, indexId, showResults }) {
+export default function Question({ question, indexId, showResults, setScore }) {
   const [quizData, setQuizData] = useState([]);
 
-  console.log(quizData);
+  useEffect(() => {
+    quizData.map((answer) => {
+      answer.isChosen &&
+        answer.isCorrect &&
+        setScore((prevState) => prevState + 1);
+    });
+  }, [quizData, setScore]);
 
   if (quizData.length === 0) {
     const answersArray = [];
@@ -29,7 +35,10 @@ export default function Question({ question, indexId, showResults }) {
     return text
       .replace(/&quot;/g, '"')
       .replace(/&#039;/g, "'")
-      .replace(/&amp;/g, "&");
+      .replace(/&amp;/g, "&")
+      .replace(/&uacute;/g, "ú")
+      .replace(/&atilde;/g, "ã")
+      .replace(/&oacute;/g, "ó");
   }
 
   function handleChange(id) {

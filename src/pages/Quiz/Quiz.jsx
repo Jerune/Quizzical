@@ -5,6 +5,9 @@ export default function Quiz() {
   const [showResults, setShowResults] = useState(false);
   const [dataIsLoading, setDataLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [score, setScore] = useState(0);
+
+  console.log(score);
 
   useEffect(() => {
     !showResults && getQuestions();
@@ -22,6 +25,7 @@ export default function Quiz() {
     } catch (err) {
       console.log(err);
     }
+    setScore(0);
     setDataLoading(false);
   }
 
@@ -40,6 +44,7 @@ export default function Quiz() {
           question={questions[index]}
           indexId={index}
           showResults={showResults}
+          setScore={setScore}
         />
       );
     });
@@ -54,7 +59,19 @@ export default function Quiz() {
   return (
     <div className="quiz">
       {questionElements}
-      {buttons}
+      <div className="footer">
+        {showResults && (
+          <p>
+            {score} out of {questions.length}:{" "}
+            {score < 3
+              ? "You Suck!"
+              : score === 4
+              ? "Almost There!"
+              : "Super Hero!"}
+          </p>
+        )}
+        {buttons}
+      </div>
     </div>
   );
 }

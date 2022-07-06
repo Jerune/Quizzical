@@ -47,11 +47,12 @@ button {
   background-color: #4D5B9E;
   font-family: "Inter", sans-serif;
   font-weight: 500;
+  font-size: 0.75rem;
   border-radius: 10px;
   color: white;
   border: none;
   cursor: pointer;
-  padding: 16px 30px;
+  padding: 12px 25px;
 }
 
 .question {
@@ -152,4 +153,13 @@ button {
 .quiz {
   width: 100%;
   max-width: 700px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
 }/*# sourceMappingURL=main.css.map */
