@@ -34,7 +34,7 @@ export default function Quiz() {
   let questionElements = [];
   if (questions.length > 0) {
     questionElements = questions.map((question, index) => {
-      return <Question key={index} data={question} />;
+      return <Question key={index} data={question} id={index} />;
     });
   }
 
