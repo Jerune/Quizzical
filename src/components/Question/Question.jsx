@@ -6,14 +6,6 @@ export default function Question({ question, indexId, showResults, setScore }) {
   const [quizData, setQuizData] = useState([]);
 
   useEffect(() => {
-    quizData.map((answer) => {
-      answer.isChosen &&
-        answer.isCorrect &&
-        setScore((prevState) => prevState + 1);
-    });
-  }, [quizData, setScore]);
-
-  if (quizData.length === 0) {
     const answersArray = [];
     question.incorrect_answers.map((answer) => {
       return answersArray.push({
@@ -29,6 +21,18 @@ export default function Question({ question, indexId, showResults, setScore }) {
     });
     const sortedArray = answersArray.sort(() => Math.random() - 0.5);
     setQuizData(sortedArray);
+  }, [question]);
+
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    quizData.map((answer) => {
+      answer.isChosen &&
+        answer.isCorrect &&
+        setScore((prevState) => prevState + 1);
+    });
+  }, [quizData, setScore]);
+
+  if (quizData.length === 0) {
   }
 
   function fixText(text) {
@@ -38,7 +42,11 @@ export default function Question({ question, indexId, showResults, setScore }) {
       .replace(/&amp;/g, "&")
       .replace(/&uacute;/g, "ú")
       .replace(/&atilde;/g, "ã")
-      .replace(/&oacute;/g, "ó");
+      .replace(/&oacute;/g, "ó")
+      .replace(/&Eacute;/g, "É")
+      .replace(/&eacute;/g, "é")
+      .replace(/&Uuml;/g, "Ü")
+      .replace(/&ouml;/g, "ö");
   }
 
   function handleChange(id) {

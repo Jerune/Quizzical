@@ -7,7 +7,7 @@ export default function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
 
-  console.log(score);
+  console.log("score:", score);
 
   useEffect(() => {
     !showResults && getQuestions();
@@ -18,7 +18,7 @@ export default function Quiz() {
     setDataLoading(true);
     try {
       const response = await fetch(
-        "https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple"
+        "https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple"
       );
       const questionsArray = await response.json();
       setQuestions(questionsArray.results);
@@ -63,7 +63,7 @@ export default function Quiz() {
         {showResults && (
           <p>
             {score} out of {questions.length}:{" "}
-            {score < 3
+            {score < 4
               ? "You Suck!"
               : score === 4
               ? "Almost There!"
