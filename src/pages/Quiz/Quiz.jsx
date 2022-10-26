@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import Question from "../../components/Question/Question";
+import getQuestions from "../../components/getQuestions/getQuestions";
+import React from "react";
 
 export default function Quiz() {
   const [showResults, setShowResults] = useState(false);
+  const [dataHasLoaded, setDataHasLoaded] = useState(false);
   const [dataIsLoading, setDataLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
@@ -10,24 +13,20 @@ export default function Quiz() {
   console.log("score:", score);
 
   useEffect(() => {
-    !showResults && getQuestions();
-  }, [showResults]);
-
-  // Functions
-  async function getQuestions() {
-    setDataLoading(true);
-    try {
-      const response = await fetch(
-        "https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple"
-      );
-      const questionsArray = await response.json();
-      setQuestions(questionsArray.results);
-    } catch (err) {
-      console.log(err);
+    async function updateQuestions() {
+      setDataLoading(true);
+      let questionsArray = await getQuestions();
+      console.log(questionsArray);
+      setQuestions(questionsArray);
+      setScore(0);
+      setDataLoading(false);
     }
-    setScore(0);
-    setDataLoading(false);
-  }
+    if (!showResults && !dataHasLoaded) {
+      console.log(dataHasLoaded);
+      setDataHasLoaded(true);
+      updateQuestions();
+    }
+  }, [dataHasLoaded, showResults]);
 
   // Conditionals
 
@@ -51,7 +50,14 @@ export default function Quiz() {
   }
 
   const buttons = !showResults ? (
-    <button onClick={() => setShowResults(true)}>Check answers</button>
+    <button
+      onClick={() => {
+        setShowResults(true);
+        setDataHasLoaded(false);
+      }}
+    >
+      Check answers
+    </button>
   ) : (
     <button onClick={() => setShowResults(false)}>Play again</button>
   );
