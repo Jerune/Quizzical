@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Question({ question, indexId, showResults, setScore }) {
   const [quizData, setQuizData] = useState([]);
+  const [validAnswer, setValidAnswer] = useState(false);
 
   useEffect(() => {
     const answersArray = [];
@@ -26,11 +27,15 @@ export default function Question({ question, indexId, showResults, setScore }) {
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
     quizData.map((answer) => {
-      answer.isChosen &&
-        answer.isCorrect &&
+      if (answer.isChosen && answer.isCorrect && !validAnswer) {
         setScore((prevState) => prevState + 1);
+        setValidAnswer(true);
+      } else if (answer.isChosen && !answer.isCorrect && validAnswer) {
+        setScore((prevState) => prevState - 1);
+        setValidAnswer(false);
+      }
     });
-  }, [quizData, setScore]);
+  }, [quizData, setScore, validAnswer]);
 
   if (quizData.length === 0) {
   }

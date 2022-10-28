@@ -3,6 +3,7 @@ import Home from "../Home/Home";
 import Quiz from "../Quiz/Quiz";
 import bulbTop from "../../assets/yellow-balloon.png";
 import bulbBottom from "../../assets/blue-balloon.png";
+import React from "react";
 
 export default function App() {
   const [isHomescreen, setHomeScreen] = useState(true);

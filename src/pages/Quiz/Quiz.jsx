@@ -10,8 +10,6 @@ export default function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
 
-  console.log("score:", score);
-
   useEffect(() => {
     async function updateQuestions() {
       setDataLoading(true);
@@ -40,7 +38,7 @@ export default function Quiz() {
       return (
         <Question
           key={index}
-          question={questions[index]}
+          question={question}
           indexId={index}
           showResults={showResults}
           setScore={setScore}
