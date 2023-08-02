@@ -9,14 +9,16 @@ export default function App() {
   const [isHomescreen, setHomeScreen] = useState(true);
 
   return (
-    <main className="main">
-      {isHomescreen ? <Home onHome={setHomeScreen} /> : <Quiz />}
+    <>
       <img src={bulbTop} className="bulb top" alt="design-balloon-top" />
       <img
         src={bulbBottom}
         className="bulb bottom"
         alt="design-balloon-bottom"
       />
-    </main>
+      <main className="main">
+        {isHomescreen ? <Home onHome={setHomeScreen} /> : <Quiz />}
+      </main>
+    </>
   );
 }
