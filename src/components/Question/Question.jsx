@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
+import fixText from "../../utils/fixText";
 
 export default function Question({ question, indexId, showResults, setScore }) {
   const [quizData, setQuizData] = useState([]);
@@ -36,23 +37,6 @@ export default function Question({ question, indexId, showResults, setScore }) {
       }
     });
   }, [quizData, setScore, validAnswer]);
-
-  if (quizData.length === 0) {
-  }
-
-  function fixText(text) {
-    return text
-      .replace(/&quot;/g, '"')
-      .replace(/&#039;/g, "'")
-      .replace(/&amp;/g, "&")
-      .replace(/&uacute;/g, "ú")
-      .replace(/&atilde;/g, "ã")
-      .replace(/&oacute;/g, "ó")
-      .replace(/&Eacute;/g, "É")
-      .replace(/&eacute;/g, "é")
-      .replace(/&Uuml;/g, "Ü")
-      .replace(/&ouml;/g, "ö");
-  }
 
   function handleChange(id) {
     setQuizData((prevState) =>
